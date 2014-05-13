@@ -1,0 +1,32 @@
+<project name="LewisCarrollSiteTests" default="compile" basedir=".">
+
+    <property name="Selenium" value="lib/selenium-server-standalone-2.41.0.jar" />
+
+    <path id="build.path">
+        <pathelement path="${Selenium}" />
+    </path>
+    <path id="exec.path">
+        <path refid="build.path" />
+        <pathelement path="." />
+        <pathelement path="bin" />
+    </path>
+
+    <target name="init">
+        <mkdir dir="bin" />
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="./src" destdir="bin" classpathref="build.path" includeantruntime="true" debug="true">
+            <include name="**/*.java" />
+        </javac>
+    </target>
+
+    <target name="exec" depends="compile">
+        <java classname="org.ganymede.lcsna/LCTest" fork="true" maxmemory="2g" classpathref="exec.path" />
+    </target>
+
+    <target name="clean">
+        <delete dir="bin" />
+    </target>
+
+</project>
